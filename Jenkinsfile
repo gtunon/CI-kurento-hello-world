@@ -1,4 +1,4 @@
-node("${docker-node}") {
+node("${docker_node}") {
     docker.withRegistry("${registry_url}", "${docker_creds_id}") {
     
         git url: "https://github.com/gtunon/CI-kurento-hello-world.git", credentialsId: '${git_credentials_id}'
