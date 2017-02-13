@@ -9,7 +9,9 @@ node("${docker_node}") {
 		sh 'echo ${USER}'
 		
         stage "build"
-        def app = docker.build "kurento-hello-world"
+		sh "sudo chown jenkins /var/run/docker.sock"
+		sh "sudo chown jenkins /usr/bin/docker"
+		def app = docker.build "kurento-hello-world"
     
         stage "publish"
         app.push 'master'
