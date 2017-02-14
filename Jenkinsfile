@@ -8,9 +8,6 @@ node("${docker_node}") {
         println commit_id
 		sh 'echo ${USER}'
 		
-		stage "login"
-		sh 'docker login ${options}'
-		
         stage "build"		
 		def app = docker.build "${dockHub_repo}/kurento-hello-world"
     
