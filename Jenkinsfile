@@ -1,6 +1,6 @@
 node("${docker_node}") {
     docker.withRegistry("${registry_url}", "${docker_creds_id}") {
-    
+		
         git url: "https://github.com/gtunon/CI-kurento-hello-world.git", credentialsId: '${git_credentials_id}'
     
         sh "git rev-parse HEAD > .git/commit-id"
@@ -8,7 +8,10 @@ node("${docker_node}") {
         println commit_id
 		sh 'echo ${USER}'
 		
-        stage "build"
+		stage "login"
+		sh 'docker login ${options}'
+		
+        stage "build"		
 		def app = docker.build "${dockHub_repo}/kurento-hello-world"
     
         stage "publish"
