@@ -1,5 +1,5 @@
 node("${docker_node}") {
-    docker.withServer("${registry_url}", "${docker_creds_id}") {
+    docker.withRegistry("${registry_url}", "${docker_creds_id}") {
     
         git url: "https://github.com/gtunon/CI-kurento-hello-world.git", credentialsId: '${git_credentials_id}'
     
@@ -9,7 +9,7 @@ node("${docker_node}") {
 		sh 'echo ${USER}'
 		
         stage "build"
-		def app = docker.build "kurento-hello-world"
+		def app = docker.build "${dockHub_repo}/kurento-hello-world"
     
         stage "publish"
 		sh 'echo ${registry_url}'
