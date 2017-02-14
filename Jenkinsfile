@@ -12,6 +12,8 @@ node("${docker_node}") {
 		def app = docker.build "kurento-hello-world"
     
         stage "publish"
+		sh 'echo ${registry_url}'
+		sh 'echo ${docker_creds_id}'
         app.push 'master'
         app.push "${commit_id}"
     }
